@@ -22,10 +22,10 @@ function itemEntry({ item, showTime, toggleTask, formatTime}){
           </span>
         )}
       </div>
-
+      
       <div 
         className={`flex items-start space-x-2 py-1 flex-1 ${
-          item.type === 'task' ? 'cursor-pointer' : ''
+          item.type === 'task' ? 'cursor-pointer hover:bg-gray-50 rounded px-1 -mx-1 transition-colors' : ''
         }`}
         onClick={() => item.type === 'task' && toggleTask(item.id)}
       >

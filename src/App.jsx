@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './components/header/header'
 import Input from './components/input/input'
-import ItemEntry from './components/input/itemEntry'
 import ItemList from './components/list/itemList'
 
 const TodoistApp = () => {
@@ -82,7 +81,8 @@ const TodoistApp = () => {
             addItem={addItem}
             formatTime={formatTime}
           />
-
+          
+        <div className="bg-red-500 text-white p-4">Test</div>
           <ItemList 
             items={items}
             toggleTask={toggleTask}
