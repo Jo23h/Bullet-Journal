@@ -1,5 +1,5 @@
 
-function itemEntry({ item, showTime, onToggleTask }){
+function itemEntry({ item, showTime, toggleTask, formatTime}){
 
   const itemTypes = {
     task: { symbol: '•', label: 'Task' },
@@ -22,11 +22,12 @@ function itemEntry({ item, showTime, onToggleTask }){
           </span>
         )}
       </div>
+
       <div 
         className={`flex items-start space-x-2 py-1 flex-1 ${
           item.type === 'task' ? 'cursor-pointer' : ''
         }`}
-        onClick={() => item.type === 'task' && onToggleTask(item.id)}
+        onClick={() => item.type === 'task' && toggleTask(item.id)}
       >
         <span className={`font-mono text-sm mt-0.5 ${
           item.completed ? 'text-green-600' : 'text-gray-700'
