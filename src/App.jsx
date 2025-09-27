@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './components/header/header'
+import Input from './components/input/input'
 
 const TodoistApp = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -15,7 +16,7 @@ const TodoistApp = () => {
     return () => clearInterval(timer);
   }, []);
 
-   const formatTime = (date) => {
+  const formatTime = (date) => {
     return date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
@@ -33,8 +34,8 @@ const TodoistApp = () => {
   };
 
   const addItem = (text, type) => {
-    if(!text.trim()) return;
-    
+    if (!text.trim()) return;
+
     const newItem = {
       id: Date.now(),
       text: text,
@@ -46,15 +47,25 @@ const TodoistApp = () => {
     setItems([...items, newItem]);
   };
 
-
   return (
     <>
-      <Header 
-      currentTime = {currentTime}
-      formatCurrentTime = {formatCurrentTime}
-      formatTime = {formatTime}
-      />
-     
+      <div className="min-h-screen bg-gray-100 p-4">
+        <div className="max-w-2xl mx-auto">
+          <Header 
+          currentTime = {currentTime}
+          formatCurrentTime = {formatCurrentTime}
+          formatTime = {formatTime}
+          />
+
+          <Input 
+          currentTime={currentTime}
+          newItem={newItem}
+          setNewItem={setNewItem}
+          addItem={addItem}
+          formatTime = {formatTime}
+          />
+        </div>
+      </div>
     </>
   );
 };
