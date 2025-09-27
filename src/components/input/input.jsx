@@ -1,5 +1,3 @@
-
-
 function input({currentTime, newItem, setNewItem, addItem, formatTime}) {
 
     const itemTypes = {
