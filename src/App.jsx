@@ -1,11 +1,36 @@
-import { useState, useEffect } from 'react';
-import Header from './components/header/header'
-import Input from './components/input/input'
-import ItemList from './components/list/itemList'
+import { useState, useEffect } from 'react'
+import './App.css'
+import Header from './components/Header'
+import InputForm from './components/Form'
+import ItemList from './components/ItemList'
 
-const TodoistApp = () => {
+const App = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    {
+      id: 1,
+      text: "Check emails and respond to urgent messages",
+      type: "task",
+      completed: true,
+      createdAt: new Date(Date.now() - 3600000)
+    },
+    {
+      id: 2,
+      text: "The morning coffee was perfect today - need to remember this blend",
+      type: "thought",
+      completed: false,
+      createdAt: new Date(Date.now() - 3000000)
+    },
+    {
+      id: 3,
+      text: "Prepare presentation for tomorrow's meeting",
+      type: "task",
+      completed: false,
+      createdAt: new Date(Date.now() - 2400000)
+    }
+  ]);
+  const [newItemText, setNewItemText] = useState('');
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -15,46 +40,18 @@ const TodoistApp = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const formatTime = (date) => {
-    return date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: false
-    });
-  };
-
-  const formatCurrentTime = (date) => {
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
-
   const addItem = (text, type) => {
-    console.log('addItem called with:', text, type); // Debug log
-    if (!text.trim()) {
-      console.log('Empty text, returning'); // Debug log
-      return;
-    }
+    if (!text.trim()) return;
 
-    try {
-      const newItem = {
-        id: Date.now(),
-        text: text,
-        type: type,
-        completed: false,
-        createdAt: new Date()
-      };
+    const newItem = {
+      id: Date.now(),
+      text: text,
+      type: type,
+      completed: false,
+      createdAt: new Date()
+    };
 
-      setItems(prevItems => {
-        console.log('Adding new item:', newItem); // Debug log
-        return [...prevItems, newItem];
-      });
-    } catch (error) {
-      console.error('Error adding item:', error);
-    }
+    setItems([...items, newItem]);
   };
 
   const toggleTask = (itemId) => {
@@ -66,34 +63,32 @@ const TodoistApp = () => {
   };
 
   return (
-    <>
-      <div className="min-h-screen bg-gray-100 p-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="app">
+      <div className="container">
         <Header 
           currentTime={currentTime}
-          formatCurrentTime={formatCurrentTime}
-          formatTime={formatTime}
+          filter={filter}
+          setFilter={setFilter}
         />
 
-        <div className="bg-white rounded-lg shadow-sm p-4">
-          <Input 
+        <div className="main-content">
+          <InputForm
             currentTime={currentTime}
-            addItem={addItem}
-            formatTime={formatTime}
+            newItemText={newItemText}
+            setNewItemText={setNewItemText}
+            onAddItem={addItem}
           />
-          
-        <div className="bg-red-500 text-white p-4">Test</div>
-          <ItemList 
+
+          <ItemList
             items={items}
-            toggleTask={toggleTask}
-            formatTime={formatTime}
+            filter={filter}
+            onToggleTask={toggleTask}
           />
         </div>
+
       </div>
     </div>
-    </>
   );
 };
 
-
-export default TodoistApp;
+export default App
