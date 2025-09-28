@@ -1,5 +1,6 @@
 import TimeDisplay from "./TimeDisplay";
 import FilterButtons from "./FilterButtons";
+import GeminiChat from "./GeminiChat";
 
 function header({ filter, setFilter }) {
   
@@ -24,6 +25,7 @@ function header({ filter, setFilter }) {
         <TimeDisplay />
       </div>
       <FilterButtons filter={filter} setFilter={setFilter} />
+      <GeminiChat />
     </div>
   );
 };

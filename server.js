@@ -19,10 +19,21 @@
 //   }
 // });
 
-import dotenv from "dotenv"
-import {GoogleGenerativeAI} from "@google/generative-ai";
-
-dotenv.config();
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
+app.post('/api/chat', async (req, res) => {
+  const { message } = req.body;
+  
+  try {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: message }] }]
+      })
+    });
+    
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get AI response' });
+  }
+});
