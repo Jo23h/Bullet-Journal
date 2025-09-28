@@ -12,5 +12,5 @@ Currently, two official plugins are available:
 The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
 ## Sources
-Set up backend: https://www.youtube.com/watch?v=FcwfjMebjTU
-Create chatbot using Gemini AI: https://www.youtube.com/watch?v=KNlMuo5PKxk
+- Set up backend: https://www.youtube.com/watch?v=FcwfjMebjTU
+- Create chatbot using Gemini AI: https://www.youtube.com/watch?v=KNlMuo5PKxk
