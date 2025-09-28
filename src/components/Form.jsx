@@ -38,14 +38,42 @@ function Form({ currentTime, newItemText, setNewItemText, onAddItem }) {
   };
 
   return (
-    <div className="input-form">
-      <div className="input-instructions">
-        Start with <span className="command">/ta</span> for tasks or{' '}
-        <span className="command">/th</span> for thoughts, then press Enter
+    <div style={{
+      marginBottom: '24px',
+      paddingBottom: '16px',
+      borderBottom: '1px solid #e5e7eb'
+    }}>
+      <div style={{
+        fontSize: '12px',
+        color: '#6b7280',
+        marginBottom: '12px'
+      }}>
+        Start with <span style={{
+          fontFamily: 'monospace',
+          backgroundColor: '#f3f4f6',
+          padding: '2px 4px',
+          borderRadius: '4px'
+        }}>/ta</span> for tasks or{' '}
+        <span style={{
+          fontFamily: 'monospace',
+          backgroundColor: '#f3f4f6',
+          padding: '2px 4px',
+          borderRadius: '4px'
+        }}>/th</span> for thoughts, then press Enter
       </div>
       
-      <div className="input-container">
-        <span className="time-display">
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px'
+      }}>
+        <span style={{
+          fontSize: '12px',
+          color: '#9ca3af',
+          fontFamily: 'monospace',
+          width: '48px',
+          flexShrink: 0
+        }}>
           {formatTime(currentTime)}
         </span>
         <input
@@ -54,49 +82,15 @@ function Form({ currentTime, newItemText, setNewItemText, onAddItem }) {
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
           placeholder="/ta Buy groceries or /th Feeling stressed"
-          className="main-input"
+          style={{
+            flex: 1,
+            padding: '4px 8px',
+            border: 'none',
+            outline: 'none',
+            fontSize: '14px',
+            backgroundColor: 'transparent'
+          }}
         />
-      </div>
-    </div>
-  );
-};
-
-// Item Entry Component
-const ItemEntry = ({ item, showTime, onToggleTask }) => {
-  const formatTime = (date) => {
-    return date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: false
-    });
-  };
-
-  const getSymbol = (item) => {
-    if (item.type === 'task') {
-      return item.completed ? '✗' : '•';
-    }
-    return '—';
-  };
-
-  return (
-    <div className="item-entry">
-      <div className="time-column">
-        {showTime && (
-          <span className="item-time">
-            {formatTime(item.createdAt)}
-          </span>
-        )}
-      </div>
-      <div 
-        className={`item-content ${item.type === 'task' ? 'clickable' : ''}`}
-        onClick={() => item.type === 'task' && onToggleTask(item.id)}
-      >
-        <span className={`item-symbol ${item.completed ? 'completed' : ''}`}>
-          {getSymbol(item)}
-        </span>
-        <span className={`item-text ${item.completed ? 'completed' : ''}`}>
-          {item.text}
-        </span>
       </div>
     </div>
   );
