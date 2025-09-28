@@ -9,7 +9,7 @@ const App = () => {
   const [items, setItems] = useState([
     {
       id: 1,
-      text: "Check emails and respond to urgent messages",
+      text: "Procrastinate on Project 2",
       type: "task",
       completed: true,
       createdAt: new Date(Date.now() - 3600000)

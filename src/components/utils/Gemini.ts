@@ -8,7 +8,6 @@ const generationConfig = {
     temperature: 1,
     topP: 0.95,
     topK: 64,
-    response_mime_type: 'application/json'
 }
 
 const model = genAI.getGenerativeModel({
@@ -16,7 +15,7 @@ const model = genAI.getGenerativeModel({
     generationConfig
 })
 
-const mainPrompt = `Do or do not, there is no try.`
+const mainPrompt = `Always think about the 20% that can give me 80% return - help me prioritize!`
 
 export const sendQueryToGemini = async (userText) => {
     const prompt = `${mainPrompt} GEMINI_QUERY => ${userText}`;
