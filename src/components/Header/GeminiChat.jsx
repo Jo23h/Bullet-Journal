@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { sendQueryToGemini } from '../utils/Gemini'
 
 function GeminiChat() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!message.trim()) return;
 
     const userMessage = {
@@ -14,8 +16,29 @@ function GeminiChat() {
       sender: 'user'
     };
 
+    // Add the user's message to the chat
     setMessages(prev => [...prev, userMessage]);
     setMessage('');
+    setIsLoading(true);
+
+    try {
+      // Send the user's message to the Gemini API
+      const geminiResponse = await sendQueryToGemini(userMessage.text);
+      
+      // Add Gemini's response to the chat
+      const geminiMessage = {
+        id: Date.now() + 1, // Ensure unique ID
+        text: geminiResponse,
+        timestamp: new Date(),
+        sender: 'gemini'
+      };
+      setMessages(prev => [...prev, geminiMessage]);
+    } catch (error) {
+      console.error("Error fetching Gemini response:", error);
+      // You can add an error message to the chat if needed
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -47,7 +70,7 @@ function GeminiChat() {
         fontWeight: '500',
         marginBottom: '8px'
       }}>
-        Quick Notes
+        How can I help you today?
       </div>
       
       {/* Messages display */}
@@ -68,7 +91,7 @@ function GeminiChat() {
             textAlign: 'center',
             padding: '8px'
           }}>
-            Start typing your notes...
+            Ask anything!
           </div>
         ) : (
           messages.map((msg) => (
@@ -77,8 +100,8 @@ function GeminiChat() {
               marginBottom: '8px',
               padding: '6px 8px',
               borderRadius: '6px',
-              backgroundColor: '#dbeafe',
-              border: '1px solid #bfdbfe',
+              backgroundColor: msg.sender === 'user' ? '#dbeafe' : '#e0ffe0', // Different background for Gemini
+              border: `1px solid ${msg.sender === 'user' ? '#bfdbfe' : '#bfffbf'}`,
               marginLeft: '0px',
               marginRight: '0px'
             }}>
@@ -93,7 +116,7 @@ function GeminiChat() {
                   color: '#6b7280',
                   fontWeight: '500'
                 }}>
-                  You
+                  {msg.sender === 'user' ? 'You' : 'Gemini'}
                 </span>
                 <span style={{
                   fontSize: '10px',
@@ -112,6 +135,17 @@ function GeminiChat() {
             </div>
           ))
         )}
+        {isLoading && (
+          <div style={{
+            fontSize: '11px',
+            fontStyle: 'italic',
+            textAlign: 'center',
+            padding: '8px',
+            color: '#6b7280'
+          }}>
+            Gemini is typing...
+          </div>
+        )}
       </div>
 
       {/* Input area */}
@@ -124,7 +158,7 @@ function GeminiChat() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="Type your note here..."
+          placeholder="Start adding your prompt..."
           style={{
             flex: 1,
             padding: '4px 8px',
@@ -142,21 +176,21 @@ function GeminiChat() {
         />
         <button
           onClick={handleSendMessage}
-          disabled={!message.trim()}
+          disabled={!message.trim() || isLoading}
           style={{
             padding: '4px 12px',
             fontSize: '11px',
             fontWeight: '500',
             border: '1px solid #d1d5db',
             borderRadius: '4px',
-            backgroundColor: !message.trim() ? '#f9fafb' : '#2563eb',
-            color: !message.trim() ? '#9ca3af' : 'white',
-            cursor: !message.trim() ? 'not-allowed' : 'pointer',
+            backgroundColor: (!message.trim() || isLoading) ? '#f9fafb' : '#2563eb',
+            color: (!message.trim() || isLoading) ? '#9ca3af' : 'white',
+            cursor: (!message.trim() || isLoading) ? 'not-allowed' : 'pointer',
             transition: 'all 0.2s',
             height: '32px'
           }}
         >
-          Send
+          {isLoading ? 'Sending...' : 'Send'}
         </button>
       </div>
       
