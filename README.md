@@ -1,16 +1,28 @@
-# React + Vite
+App name: Bullet Journal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Background
+I grativated towards bullet journaling because I wanted a system that allowed me to track all my tasks but also key thoughts and feelings. Doing so allows me to be more aware of each day and better keep track of what energizes me.
 
-Currently, two official plugins are available:
+# Key Features
+- Input task/thought with timestamp (/ta for tasks, /th for thoughts)
+- Switch between filter views (All, Tasks, Thoughts) 
+- Manage outstanding tasks through toggle completion with visual aid: checkmark, strikethrough, gray text
+- Items saved to Airtable automatically; loads previous entries on refresh with no manual save required
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Getting Started
+https://github.com/Jo23h/Bullet-Journal
 
-## React Compiler
+- Start journaling by entering a task (/ta) or a thought (/th) in the input field. 
+- Chat with Gemini if you need to bounce an idea with someone. 
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Technologies
+react, react-router-dom, express, cors, dotenv, axios
 
-## Sources
+# Planned future enhancements 
+- Context stuff Gemini so that it can make recommendations based on existing tasks and thoughts
+- Introduce edit and delete feature for all existing entries 
+- Allow for data storage across different days 
+
+# Sources
 - Set up backend: https://www.youtube.com/watch?v=FcwfjMebjTU
 - Create chatbot using Gemini AI: https://www.youtube.com/watch?v=KNlMuo5PKxk
