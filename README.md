@@ -1,6 +1,6 @@
 App name: Bullet Journal
 
-<img width="617" height="279" alt="Screenshot 2025-09-28 at 5 13 49 PM" src="https://github.com/user-attachments/assets/8a7596e2-4986-4d89-ab81-df74881f2af1" />
+<img width="617" height="279" alt="Screenshot 2025-09-28 at 5 13 49 PM" src="https://github.com/user-attachments/assets/c67c57d2-f99d-4fb1-8bc5-ab3c01886cc3" />
 
 ## Background
 I grativated towards bullet journaling because I wanted a system that allowed me to track all my tasks but also key thoughts and feelings. Doing so allows me to be more aware of each day and better keep track of what energizes me.
