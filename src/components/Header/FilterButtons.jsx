@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-function FilterButtons({ setFilter }) {
+function FilterButtons() {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
@@ -32,17 +32,17 @@ function FilterButtons({ setFilter }) {
       paddingTop: '16px',
       borderTop: '1px solid #e5e7eb'
     }}>
-      <Link to="/" onClick={() => setFilter('all')} style={btnStyle('/')}
+      <Link to="/" style={btnStyle('/')}
         onMouseEnter={(e) => handleHover(e, '/', true)}
         onMouseLeave={(e) => handleHover(e, '/', false)}>
         All Items
       </Link>
-      <Link to="/tasks" onClick={() => setFilter('task')} style={btnStyle('/tasks')}
+      <Link to="/tasks" style={btnStyle('/tasks')}
         onMouseEnter={(e) => handleHover(e, '/tasks', true)}
         onMouseLeave={(e) => handleHover(e, '/tasks', false)}>
         • Tasks Only
       </Link>
-      <Link to="/thoughts" onClick={() => setFilter('thought')} style={btnStyle('/thoughts')}
+      <Link to="/thoughts" style={btnStyle('/thoughts')}
         onMouseEnter={(e) => handleHover(e, '/thoughts', true)}
         onMouseLeave={(e) => handleHover(e, '/thoughts', false)}>
         — Thoughts Only
