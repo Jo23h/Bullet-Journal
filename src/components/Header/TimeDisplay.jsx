@@ -30,21 +30,11 @@ function TimeDisplay() {
   };
 
   return (
-    <div className="time-container">
-      <div className="date-display" style={{
-        fontSize: '14px',
-        color: '#4b5563',
-        marginBottom: '4px',
-        margin: '0 0 4px 0'
-      }}>
+    <div>
+      <div style={{ fontSize: '14px', color: '#4b5563', marginBottom: '3px' }}>
         {formatDate(currentTime)}
       </div>
-      <div className="time-display" style={{
-        fontSize: '12px',
-        color: '#6b7280',
-        fontFamily: 'monospace',
-        margin: '0'
-      }}>
+      <div style={{ fontSize: '13px', color: '#6b7280', fontFamily: 'monospace' }}>
         Current time: {formatTime(currentTime)}
       </div>
     </div>

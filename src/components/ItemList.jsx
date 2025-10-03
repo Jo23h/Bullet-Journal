@@ -1,13 +1,14 @@
 import ItemEntry from "./ItemEntry";
 
 function ItemList({ items, filter, onToggleTask }) {
-    const filteredItems = items.filter(item => {
+  const filteredItems = items.filter(item => {
     if (filter === 'all') return true;
     return item.type === filter;
   });
 
   const formatTime = (date) => {
-    return date.toLocaleTimeString('en-US', {
+    const dateObj = date instanceof Date ? date : new Date(date);
+    return dateObj.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
       hour12: false
@@ -42,6 +43,6 @@ function ItemList({ items, filter, onToggleTask }) {
       })}
     </div>
   );
-};
+}
 
-export default ItemList
+export default ItemList;

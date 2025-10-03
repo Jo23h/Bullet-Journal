@@ -3,7 +3,11 @@ import { useState } from 'react';
 function ItemEntry({ item, showTime, onToggleTask }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  const formatTime = (date) => date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false });
+  const formatTime = (date) => {
+    const dateObj = date instanceof Date ? date : new Date(date);
+    return dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false });
+  };
+  
   const getSymbol = (item) => item.type === 'task' ? (item.completed ? '✗' : '•') : '—';
 
   return (
