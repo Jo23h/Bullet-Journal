@@ -16,18 +16,15 @@ function GeminiChat() {
       sender: 'user'
     };
 
-    // Add the user's message to the chat
     setMessages(prev => [...prev, userMessage]);
     setMessage('');
     setIsLoading(true);
 
     try {
-      // Send the user's message to the Gemini API
       const geminiResponse = await sendQueryToGemini(userMessage.text);
       
-      // Add Gemini's response to the chat
       const geminiMessage = {
-        id: Date.now() + 1, // Ensure unique ID
+        id: Date.now() + 1, 
         text: geminiResponse,
         timestamp: new Date(),
         sender: 'gemini'
@@ -35,7 +32,6 @@ function GeminiChat() {
       setMessages(prev => [...prev, geminiMessage]);
     } catch (error) {
       console.error("Error fetching Gemini response:", error);
-      // You can add an error message to the chat if needed
     } finally {
       setIsLoading(false);
     }

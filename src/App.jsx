@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import Header from './components/header/Header'
-import InputForm from './components/Form'
-import ItemList from './components/ItemList'
+// App.jsx
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import './App.css';
+import Header from './components/header/header';
+import InputForm from './components/Form';
+import ItemList from './components/ItemList';
 
 const App = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -16,14 +18,14 @@ const App = () => {
     },
     {
       id: 2,
-      text: "The morning coffee was perfect today - need to remember this blend",
+      text: "Blue bottle is the best",
       type: "thought",
       completed: false,
       createdAt: new Date(Date.now() - 3000000)
     },
     {
       id: 3,
-      text: "Prepare presentation for tomorrow's meeting",
+      text: "Start working on Project 2",
       type: "task",
       completed: false,
       createdAt: new Date(Date.now() - 2400000)
@@ -63,32 +65,87 @@ const App = () => {
   };
 
   return (
-    <div className="app">
-      <div className="container">
-        <Header 
-          currentTime={currentTime}
-          filter={filter}
-          setFilter={setFilter}
-        />
-
-        <div className="main-content">
-          <InputForm
+    <Router>
+      <div className="app">
+        <div className="container">
+          <Header 
             currentTime={currentTime}
-            newItemText={newItemText}
-            setNewItemText={setNewItemText}
-            onAddItem={addItem}
-          />
-
-          <ItemList
-            items={items}
             filter={filter}
-            onToggleTask={toggleTask}
+            setFilter={setFilter}
           />
-        </div>
 
+          <Routes>
+            {/* Home Route - All Items */}
+            <Route 
+              path="/" 
+              element={
+                <div className="main-content">
+                  <InputForm
+                    currentTime={currentTime}
+                    newItemText={newItemText}
+                    setNewItemText={setNewItemText}
+                    onAddItem={addItem}
+                  />
+                  <ItemList
+                    items={items}
+                    filter="all"
+                    onToggleTask={toggleTask}
+                  />
+                </div>
+              } 
+            />
+
+            {/* Tasks Route - Tasks Only */}
+            <Route 
+              path="/tasks" 
+              element={
+                <div className="main-content">
+                  <InputForm
+                    currentTime={currentTime}
+                    newItemText={newItemText}
+                    setNewItemText={setNewItemText}
+                    onAddItem={addItem}
+                  />
+                  <ItemList
+                    items={items}
+                    filter="task"
+                    onToggleTask={toggleTask}
+                  />
+                </div>
+              } 
+            />
+
+            {/* Thoughts Route - Thoughts Only */}
+            <Route 
+              path="/thoughts" 
+              element={
+                <div className="main-content">
+                  <InputForm
+                    currentTime={currentTime}
+                    newItemText={newItemText}
+                    setNewItemText={setNewItemText}
+                    onAddItem={addItem}
+                  />
+                  <ItemList
+                    items={items}
+                    filter="thought"
+                    onToggleTask={toggleTask}
+                  />
+                </div>
+              } 
+            />
+
+            {/* Catch-all Route - Redirect any unknown paths to home */}
+            <Route 
+              path="*" 
+              element={<Navigate to="/" replace />} 
+            />
+          </Routes>
+
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 
-export default App
+export default App;
