@@ -3,7 +3,7 @@ import InputForm from './Form';
 import ItemList from './ItemList';
 import bulletJournalService from '../services/bulletJournal';
 
-const Homepage = ({ items, setItems, filter, loadItems }) => {
+const Homepage = ({ items, setItems, filter}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [newItemText, setNewItemText] = useState('');
 

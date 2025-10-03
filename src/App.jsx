@@ -11,6 +11,20 @@ const App = () => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
+      const loadItems = async () => {
+        try {
+          const data = await bulletJournalService.getItems();
+          const itemsWithDates = data.map(item => ({
+            ...item,
+            createdAt: item.createdAt ? new Date(item.createdAt) : new Date()
+          }));
+          setItems(itemsWithDates);
+        } catch (error) {
+          console.error('Failed to load items:', error);
+          alert('Failed to load items from Airtable. Check console and server.');
+        }
+      };
+      
       loadItems();
     }, []);
 
@@ -18,20 +32,6 @@ const App = () => {
       const timer = setInterval(() => setCurrentTime(new Date()), 1000);
       return () => clearInterval(timer);
     }, []);
-
-    const loadItems = async () => {
-      try {
-        const data = await bulletJournalService.getItems();
-        const itemsWithDates = data.map(item => ({
-          ...item,
-          createdAt: item.createdAt ? new Date(item.createdAt) : new Date()
-        }));
-        setItems(itemsWithDates);
-      } catch (error) {
-        console.error('Failed to load items:', error);
-        alert('Failed to load items from Airtable. Check console and server.');
-      }
-    };
 
     return (
       <div className="app">
@@ -41,15 +41,15 @@ const App = () => {
           <Routes>
             <Route 
               path="/" 
-              element={<Homepage items={items} setItems={setItems} filter="all" loadItems={loadItems} />} 
+              element={<Homepage items={items} setItems={setItems} filter="all" />} 
             />
             <Route 
               path="/tasks" 
-              element={<Homepage items={items} setItems={setItems} filter="task" loadItems={loadItems} />} 
+              element={<Homepage items={items} setItems={setItems} filter="task" />} 
             />
             <Route 
               path="/thoughts" 
-              element={<Homepage items={items} setItems={setItems} filter="thought" loadItems={loadItems} />} 
+              element={<Homepage items={items} setItems={setItems} filter="thought" />} 
             />
           </Routes>
         </div>
