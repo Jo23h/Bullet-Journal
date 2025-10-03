@@ -15,18 +15,17 @@ const model = genAI.getGenerativeModel({
     generationConfig
 })
 
-const mainPrompt = `Always think about the 20% that can give me 80% return - help me prioritize!`
+import bulletJournalService from '../../services/bulletJournal';
+
+const mainPrompt = `Always think about the 20% that can give me 80% return - help me prioritize!`;
 
 export const sendQueryToGemini = async (userText) => {
     const prompt = `${mainPrompt} GEMINI_QUERY => ${userText}`;
-    try{
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = await response.text();
-        return text;
-
+    try {
+        const response = await bulletJournalService.sendChatMessage(prompt);
+        return response;
     } catch (err) {
-        console.error("Some error:", err);
+        console.error("Error communicating with Gemini:", err);
         return "An error occurred. Please try again.";
     }
 }
