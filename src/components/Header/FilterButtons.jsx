@@ -1,93 +1,50 @@
-// FilterButtons.jsx
 import { Link, useLocation } from 'react-router-dom';
 
-function FilterButtons({ filter, setFilter }) {
+function FilterButtons({ setFilter }) {
   const location = useLocation();
+  const isActive = (path) => location.pathname === path;
 
-  const isActive = (path) => {
-    return location.pathname === path;
+  const btnStyle = (path) => ({
+    padding: '8px 16px',
+    borderRadius: '8px',
+    fontSize: '14px',
+    fontWeight: '500',
+    border: 'none',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    textDecoration: 'none',
+    backgroundColor: isActive(path) ? '#2563eb' : 'transparent',
+    color: isActive(path) ? 'white' : '#4b5563'
+  });
+
+  const handleHover = (e, path, isEnter) => {
+    if (!isActive(path)) {
+      e.target.style.backgroundColor = isEnter ? '#f3f4f6' : 'transparent';
+    }
   };
 
   return (
     <div style={{
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
       gap: '8px',
       marginTop: '16px',
       paddingTop: '16px',
       borderTop: '1px solid #e5e7eb'
     }}>
-      <Link
-        to="/"
-        onClick={() => setFilter('all')}
-        style={{
-          padding: '8px 16px',
-          borderRadius: '8px',
-          fontSize: '14px',
-          fontWeight: '500',
-          border: 'none',
-          cursor: 'pointer',
-          transition: 'all 0.2s',
-          textDecoration: 'none',
-          backgroundColor: isActive('/') ? '#2563eb' : 'transparent',
-          color: isActive('/') ? 'white' : '#4b5563'
-        }}
-        onMouseEnter={(e) => {
-          if (!isActive('/')) e.target.style.backgroundColor = '#f3f4f6';
-        }}
-        onMouseLeave={(e) => {
-          if (!isActive('/')) e.target.style.backgroundColor = 'transparent';
-        }}
-      >
+      <Link to="/" onClick={() => setFilter('all')} style={btnStyle('/')}
+        onMouseEnter={(e) => handleHover(e, '/', true)}
+        onMouseLeave={(e) => handleHover(e, '/', false)}>
         All Items
       </Link>
-      <Link
-        to="/tasks"
-        onClick={() => setFilter('task')}
-        style={{
-          padding: '8px 16px',
-          borderRadius: '8px',
-          fontSize: '14px',
-          fontWeight: '500',
-          border: 'none',
-          cursor: 'pointer',
-          transition: 'all 0.2s',
-          textDecoration: 'none',
-          backgroundColor: isActive('/tasks') ? '#2563eb' : 'transparent',
-          color: isActive('/tasks') ? 'white' : '#4b5563'
-        }}
-        onMouseEnter={(e) => {
-          if (!isActive('/tasks')) e.target.style.backgroundColor = '#f3f4f6';
-        }}
-        onMouseLeave={(e) => {
-          if (!isActive('/tasks')) e.target.style.backgroundColor = 'transparent';
-        }}
-      >
+      <Link to="/tasks" onClick={() => setFilter('task')} style={btnStyle('/tasks')}
+        onMouseEnter={(e) => handleHover(e, '/tasks', true)}
+        onMouseLeave={(e) => handleHover(e, '/tasks', false)}>
         • Tasks Only
       </Link>
-      <Link
-        to="/thoughts"
-        onClick={() => setFilter('thought')}
-        style={{
-          padding: '8px 16px',
-          borderRadius: '8px',
-          fontSize: '14px',
-          fontWeight: '500',
-          border: 'none',
-          cursor: 'pointer',
-          transition: 'all 0.2s',
-          textDecoration: 'none',
-          backgroundColor: isActive('/thoughts') ? '#2563eb' : 'transparent',
-          color: isActive('/thoughts') ? 'white' : '#4b5563'
-        }}
-        onMouseEnter={(e) => {
-          if (!isActive('/thoughts')) e.target.style.backgroundColor = '#f3f4f6';
-        }}
-        onMouseLeave={(e) => {
-          if (!isActive('/thoughts')) e.target.style.backgroundColor = 'transparent';
-        }}
-      >
+      <Link to="/thoughts" onClick={() => setFilter('thought')} style={btnStyle('/thoughts')}
+        onMouseEnter={(e) => handleHover(e, '/thoughts', true)}
+        onMouseLeave={(e) => handleHover(e, '/thoughts', false)}>
         — Thoughts Only
       </Link>
     </div>

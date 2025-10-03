@@ -1,46 +1,3 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* Header Component Styles */
-.header {
-  width: 100%;
-  background-color: white;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.header-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px 16px;
-}
-
-/* Time Component Styles */
-.time-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.time-display {
-  font-size: 25px;
-  font-family: Monaco, Consolas, monospace;
-  color: #374151;
-  margin-bottom: 4px;
-}
-
-.date-display {
 /* Root and Base Styles */
 #root {
   width: 100%;
@@ -50,6 +7,15 @@
   background-color: #f3f4f6;
 }
 
+.app {
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.container {
+  max-width: 768px;
+  margin: 0 auto;
+}
 
 /* Header styles */
 .header {
@@ -393,14 +359,4 @@
   .container {
     max-width: 100%;
   }
-}
-
-/* Remove any existing animations and logos */
-@keyframes logo-spin {
-  /* Remove this animation */
-}
-
-.logo:hover,
-.logo.react:hover {
-  filter: none;
 }
