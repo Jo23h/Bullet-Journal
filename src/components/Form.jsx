@@ -1,5 +1,3 @@
-
-
 function Form({ currentTime, newItemText, setNewItemText, onAddItem }) {
   const formatTime = (date) => {
     return date.toLocaleTimeString('en-US', {
@@ -13,7 +11,7 @@ function Form({ currentTime, newItemText, setNewItemText, onAddItem }) {
     setNewItemText(e.target.value);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       const text = newItemText.trim();
       
@@ -38,62 +36,27 @@ function Form({ currentTime, newItemText, setNewItemText, onAddItem }) {
   };
 
   return (
-    <div style={{
-      marginBottom: '24px',
-      paddingBottom: '16px',
-      borderBottom: '1px solid #e5e7eb'
-    }}>
-      <div style={{
-        fontSize: '12px',
-        color: '#6b7280',
-        marginBottom: '12px'
-      }}>
-        Start with <span style={{
-          fontFamily: 'monospace',
-          backgroundColor: '#f3f4f6',
-          padding: '2px 4px',
-          borderRadius: '4px'
-        }}>/ta</span> for tasks or{' '}
-        <span style={{
-          fontFamily: 'monospace',
-          backgroundColor: '#f3f4f6',
-          padding: '2px 4px',
-          borderRadius: '4px'
-        }}>/th</span> for thoughts, then press Enter
+    <div className="form-container">
+      <div className="form-instructions">
+        Start with <span className="form-command">/ta</span> for tasks or{' '}
+        <span className="form-command">/th</span> for thoughts, then press Enter
       </div>
       
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px'
-      }}>
-        <span style={{
-          fontSize: '12px',
-          color: '#9ca3af',
-          fontFamily: 'monospace',
-          width: '48px',
-          flexShrink: 0
-        }}>
+      <div className="form-input-row">
+        <span className="form-time">
           {formatTime(currentTime)}
         </span>
         <input
           type="text"
           value={newItemText}
           onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyDown}
           placeholder="/ta Buy groceries or /th Feeling stressed"
-          style={{
-            flex: 1,
-            padding: '4px 8px',
-            border: 'none',
-            outline: 'none',
-            fontSize: '14px',
-            backgroundColor: 'transparent'
-          }}
+          className="form-input"
         />
       </div>
     </div>
   );
-};
+}
 
-export default Form
+export default Form;

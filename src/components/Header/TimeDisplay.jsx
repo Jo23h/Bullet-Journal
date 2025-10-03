@@ -31,10 +31,10 @@ function TimeDisplay() {
 
   return (
     <div>
-      <div style={{ fontSize: '14px', color: '#4b5563', marginBottom: '3px' }}>
+      <div style={{ fontSize: '14px', color: 'gray', marginBottom: '3px' }}>
         {formatDate(currentTime)}
       </div>
-      <div style={{ fontSize: '13px', color: '#6b7280', fontFamily: 'monospace' }}>
+      <div style={{ fontSize: '13px', color: 'charcoal', fontFamily: 'monospace' }}>
         Current time: {formatTime(currentTime)}
       </div>
     </div>

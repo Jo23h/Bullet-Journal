@@ -14,6 +14,3 @@ The React Compiler is not enabled on this template. To add it, see [this documen
 ## Sources
 - Set up backend: https://www.youtube.com/watch?v=FcwfjMebjTU
 - Create chatbot using Gemini AI: https://www.youtube.com/watch?v=KNlMuo5PKxk
-
-
-/summary end point in server.js. Get all the todos, form json payload, call gemini, front end 

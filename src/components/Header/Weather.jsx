@@ -30,7 +30,7 @@ function Weather() {
         src={weatherData.img} 
         alt={weatherData.imgAlt}
       />
-      <span style={{ fontSize: '14px', color: '#6b7280' }}>
+      <span style={{ fontSize: '14px', color: 'charcoal' }}>
         {weatherData.time}
       </span>
     </div>

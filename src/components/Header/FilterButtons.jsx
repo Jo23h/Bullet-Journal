@@ -4,47 +4,24 @@ function FilterButtons() {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
-  const btnStyle = (path) => ({
-    padding: '8px 16px',
-    borderRadius: '8px',
-    fontSize: '14px',
-    fontWeight: '500',
-    border: 'none',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-    textDecoration: 'none',
-    backgroundColor: isActive(path) ? '#2563eb' : 'transparent',
-    color: isActive(path) ? 'white' : '#4b5563'
-  });
-
-  const handleHover = (e, path, isEnter) => {
-    if (!isActive(path)) {
-      e.target.style.backgroundColor = isEnter ? '#f3f4f6' : 'transparent';
-    }
-  };
-
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      gap: '8px',
-      marginTop: '16px',
-      paddingTop: '16px',
-      borderTop: '1px solid #e5e7eb'
-    }}>
-      <Link to="/" style={btnStyle('/')}
-        onMouseEnter={(e) => handleHover(e, '/', true)}
-        onMouseLeave={(e) => handleHover(e, '/', false)}>
+    <div className="filter-container">
+      <Link 
+        to="/" 
+        className={`filter-btn ${isActive('/') ? 'active' : ''}`}
+      >
         All Items
       </Link>
-      <Link to="/tasks" style={btnStyle('/tasks')}
-        onMouseEnter={(e) => handleHover(e, '/tasks', true)}
-        onMouseLeave={(e) => handleHover(e, '/tasks', false)}>
+      <Link 
+        to="/tasks" 
+        className={`filter-btn ${isActive('/tasks') ? 'active' : ''}`}
+      >
         • Tasks Only
       </Link>
-      <Link to="/thoughts" style={btnStyle('/thoughts')}
-        onMouseEnter={(e) => handleHover(e, '/thoughts', true)}
-        onMouseLeave={(e) => handleHover(e, '/thoughts', false)}>
+      <Link 
+        to="/thoughts" 
+        className={`filter-btn ${isActive('/thoughts') ? 'active' : ''}`}
+      >
         — Thoughts Only
       </Link>
     </div>
