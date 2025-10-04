@@ -63,10 +63,13 @@ app.patch('/api/items/:id', async (req, res) => {
     // Express extracts item ID from the URL and makes it available as req.params.id.
     const response = await axios.patch(`${airtableUrl}/${req.params.id}`, {fields: req.body}, {headers: airtableHeaders});
 
-    // Sends a JSON response back (from Airtable) to React app
-    // Combines the ID with all the field data
+    // sends a JSON response back (from Airtable) to React app
+    // combines the ID with all the field data
     res.json({ id: response.data.id, ...response.data.fields});
   } catch (error) {
+
+    //  sets HTTP status code to 500 (Internal Server Error)
+    // tell frontend something in the backend aint working
     res.status(500).json({ error: 'Failed to update item'});
   }
 });

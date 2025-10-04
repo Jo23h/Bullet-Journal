@@ -25,6 +25,7 @@ function GeminiChat() {
 
       // create new array with all previous existing messages plus the new one
       setMessages(existingMessage => [...existingMessage, { 
+
         // gives it a unique ID (adds 1 to avoid collision with the user message
         id: Date.now() + 1, 
         text: geminiResponse, 
@@ -35,6 +36,9 @@ function GeminiChat() {
       }]);
     } catch (err) {
       console.error("Error:", err);
+
+      // ensures loading stops whenever -
+      // if an error occurs, setIsLoading(false) might never run, leaving the UI stuck in loading state forever
     } finally {
       setIsLoading(false);
     }
@@ -65,6 +69,12 @@ function GeminiChat() {
 
             // adds either gemini-message user or gemini-message ai class
             <div key={msg.id} className={`gemini-message ${msg.sender === 'user' ? 'user' : 'ai'}`}>
+
+              {/* header: You
+                  text: .... */}
+              {/* header contains: 
+              <span className="gemini-sender">You</span> <span className="gemini-time">2:30 PM</span>
+              */}
               <div className="gemini-message-header">
 
                 {/* displays "You" if sender is 'user', otherwise displays "Gemini". */}
@@ -75,12 +85,14 @@ function GeminiChat() {
                 {/* formats and displays when the message was sent (e.g., "2:30 PM"). */}
                 <span className="gemini-time">{formatTime(msg.timestamp)}</span>
               </div>
-              
+
               {/* displays the actual message content */}
               <div className="gemini-text">{msg.text}</div>
             </div>
           ))
         )}
+        {/* if isLoading is true, render the div
+            else when response arrives and isLoading is not true, div disappears and gemini response displays */}
         {isLoading && <div className="gemini-loading">Gemini is typing...</div>}
       </div>
 

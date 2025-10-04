@@ -17,11 +17,14 @@ const model = genAI.getGenerativeModel({
 
 import bulletJournalService from '../../services/bulletJournal';
 
-const mainPrompt = `Always think about the 20% that can give me 80% return - help me prioritize!`;
+const mainPrompt = `help me not procrastinate!`;
 
 export const sendQueryToGemini = async (userText) => {
+    // combines predefined prompt with question
     const prompt = `${mainPrompt} GEMINI_QUERY => ${userText}`;
     try {
+
+        // ends the combined prompt to gemini
         const response = await bulletJournalService.sendChatMessage(prompt);
         return response;
     } catch (err) {

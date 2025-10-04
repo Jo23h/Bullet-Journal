@@ -9,10 +9,13 @@ function Form({currentTime, newItemText, setNewItemText, onAddItem}) {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
+
+      // trim whitespace 
       const text = newItemText.trim();
       if (!text) return;
       
-      let itemType = 'task';
+      // default to task if prefix is wrong
+      let itemType = 'task'
       let content = text;
       
       if (text.startsWith('/ta ')) {
@@ -22,6 +25,7 @@ function Form({currentTime, newItemText, setNewItemText, onAddItem}) {
         content = text.slice(4);
       }
       
+      // after stripping /ta  or /th if anything remains, calls the onAddItem function
       if (content.trim()) {
         onAddItem(content.trim(), itemType);
       }
