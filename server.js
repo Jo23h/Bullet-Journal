@@ -87,17 +87,33 @@ app.post('/api/chat', async (req, res) => {
 
     // extracts the message text that the user typed in the chat box
     const {message} = req.body;
+
+    // makes a POST request to Google's Gemini API with the API key passed as a URL parameter
     const response = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${VITE_GEMINI_API_KEY}`,
       {
+        // the format Gemini expects. nested because Gemini supports multi-turn
+        // if I typed "help me prioritize", this becomes: parts: [{text:"help me prioritize"}]
         contents: [{
           parts: [{text: message}]
         }]
       },
+
+      // Content-Type header tells the receiving server (Gemini API) what format the data is in:json
       {headers: {'Content-Type': 'application/json'}}
     );
-    const reply = response.data.candidates[0].content.parts[0].text;
-    res.json({ reply });
+
+    // extracts the actual text response from Gemini's nested response structure
+    // response.data - full Gemini response
+    const reply = response.data.
+
+    // .candidates[0] - gets the first response option (Gemini can return multiple alternatives)
+    // candidates: [{content: {...}}, {content: {...}},] 
+    // .content - gets the content container of the first reponse
+    // within each candidate is a content object that holds the actual response data: content: {parts: [...]}
+    // parts array can contain multiple pieces (text, images, code blocks, etc
+    candidates[0].content.parts[0].text;
+    res.json({reply});
   } catch (error) {
     res.status(500).json({ error: 'Failed to get response from Gemini' });
   }
