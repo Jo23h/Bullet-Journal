@@ -26,6 +26,7 @@ react, react-router-dom, express, cors, dotenv, axios
 - Allow for data storage across different days 
 
 ## Sources
+- Setting up Gemini: https://www.youtube.com/watch?v=Z8F6FvMrN4o
 - Set up backend: https://www.youtube.com/watch?v=FcwfjMebjTU
 - Create chatbot using Gemini AI: https://www.youtube.com/watch?v=KNlMuo5PKxk & https://www.youtube.com/watch?v=0yboGn8errU
 - Journal: https://www.youtube.com/watch?v=rF74YMOuvMI

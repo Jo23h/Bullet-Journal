@@ -10,10 +10,14 @@ class BulletJournalService {
   async createItem(itemData) {
     const res = await fetch(`${API_URL}/items`, {
       method: 'POST',
+      // react app tells server it is sending json data
       headers: {'Content-Type': 'application/json'},
+      // converts the JavaScript object to a JSON string
       body: JSON.stringify(itemData)
     });
     if (!res.ok) throw new Error('Failed to create item');
+
+    // sends data to Express server → Server saves to Airtable → Server returns the new item with ID →
     return res.json();
   }
 
@@ -28,7 +32,8 @@ class BulletJournalService {
   }
 
   async deleteItem(id) {
-    const res = await fetch(`${API_URL}/items/${id}`, {method: 'DELETE'});
+    const res = await fetch(`${API_URL}/items/${id}`, {
+      method: 'DELETE'});
     if (!res.ok) throw new Error('Failed to delete item');
   }
 
