@@ -22,10 +22,15 @@ function GeminiChat() {
 
     try {
       const geminiResponse = await sendQueryToGemini(userMessage.text);
+
+      // create new array with all previous existing messages plus the new one
       setMessages(existingMessage => [...existingMessage, { 
+        // gives it a unique ID (adds 1 to avoid collision with the user message
         id: Date.now() + 1, 
         text: geminiResponse, 
         timestamp: new Date(), 
+
+        // for css styling to differenitate between user and gemini response 
         sender: 'gemini' 
       }]);
     } catch (err) {
@@ -50,17 +55,28 @@ function GeminiChat() {
       <div className="gemini-title">How can I help you today?</div>
       
       <div className="gemini-messages">
-        {messages.length === 0 ? (
-          <div className="gemini-empty">Ask anything!</div>
-        ) : (
-          messages.map((msg) => (
+        
+        {/* if no messages yet, shows "Ask anything!" */}
+        {messages.length === 0 
+        ? (<div className="gemini-empty">Ask anything!</div>) 
+
+            // else loops through all messages and displays each one with:
+        : (messages.map((msg) => (
+
+            // adds either gemini-message user or gemini-message ai class
             <div key={msg.id} className={`gemini-message ${msg.sender === 'user' ? 'user' : 'ai'}`}>
               <div className="gemini-message-header">
+
+                {/* displays "You" if sender is 'user', otherwise displays "Gemini". */}
                 <span className="gemini-sender">
                   {msg.sender === 'user' ? 'You' : 'Gemini'}
                 </span>
+
+                {/* formats and displays when the message was sent (e.g., "2:30 PM"). */}
                 <span className="gemini-time">{formatTime(msg.timestamp)}</span>
               </div>
+              
+              {/* displays the actual message content */}
               <div className="gemini-text">{msg.text}</div>
             </div>
           ))
