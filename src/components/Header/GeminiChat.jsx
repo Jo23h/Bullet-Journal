@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { sendQueryToGemini } from '../utils/Gemini';
+import {useState} from 'react';
+import {sendQueryToGemini} from '../utils/Gemini';
 
 function GeminiChat() {
   const [message, setMessage] = useState('');
@@ -16,26 +16,26 @@ function GeminiChat() {
       sender: 'user' 
     };
     
-    setMessages(prev => [...prev, userMessage]);
+    setMessages(existingMessage => [...existingMessage, userMessage]);
     setMessage('');
     setIsLoading(true);
 
     try {
       const geminiResponse = await sendQueryToGemini(userMessage.text);
-      setMessages(prev => [...prev, { 
+      setMessages(existingMessage => [...existingMessage, { 
         id: Date.now() + 1, 
         text: geminiResponse, 
         timestamp: new Date(), 
         sender: 'gemini' 
       }]);
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (err) {
+      console.error("Error:", err);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
@@ -43,13 +43,11 @@ function GeminiChat() {
   };
 
   const formatTime = (date) => 
-    date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    date.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
 
   return (
     <div className="gemini-chat">
-      <div className="gemini-title">
-        How can I help you today?
-      </div>
+      <div className="gemini-title">How can I help you today?</div>
       
       <div className="gemini-messages">
         {messages.length === 0 ? (
@@ -74,7 +72,7 @@ function GeminiChat() {
         <textarea 
           value={message} 
           onChange={(e) => setMessage(e.target.value)} 
-          onKeyDown={handleKeyPress}
+          onKeyDown={handleKeyDown}
           placeholder="Start adding your prompt..."
           className="gemini-textarea"
           rows={1} 

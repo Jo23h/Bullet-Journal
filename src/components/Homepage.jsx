@@ -32,18 +32,23 @@ const Homepage = ({items, setItems, filter}) => {
   };
 
   const toggleTask = async (itemId) => {
+    // finds the specific item you clicked by matching the ID
     const item = items.find(i => i.id === itemId);
-    if (!item || item.type !== 'task') return;
+    if (item.type !== 'task') return;
 
     try {
       const updated = await bulletJournalService.updateItem(itemId, {
+
+        // if completed: false, sends {completed: true}. vice versa
         completed: !item.completed
       });
 
+      // if the item ID matches, replace it with the updated status of completion from the server
+      // if no match, retain original state of completition 
       setItems(items.map(i => i.id === itemId ? updated : i));
     } catch (err) {
       console.error('Failed to toggle task:', err);
-      alert('Failed to update task. Check console for details.');
+      alert('Failed to update task');
     }
   };
 
@@ -55,11 +60,7 @@ const Homepage = ({items, setItems, filter}) => {
         setNewItemText={setNewItemText}
         onAddItem={addItem}
       />
-      <ItemList
-        items={items}
-        filter={filter}
-        onToggleTask={toggleTask}
-      />
+      <ItemList items={items} filter={filter} onToggleTask={toggleTask} />
     </div>
   );
 };

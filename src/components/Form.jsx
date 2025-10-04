@@ -1,4 +1,4 @@
-function Form({ currentTime, newItemText, setNewItemText, onAddItem }) {
+function Form({currentTime, newItemText, setNewItemText, onAddItem}) {
   const formatTime = (date) => {
     return date.toLocaleTimeString('en-US', {
       hour: 'numeric',
@@ -7,21 +7,15 @@ function Form({ currentTime, newItemText, setNewItemText, onAddItem }) {
     });
   };
 
-  const handleInputChange = (e) => {
-    setNewItemText(e.target.value);
-  };
-
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       const text = newItemText.trim();
-      
       if (!text) return;
       
       let itemType = 'task';
       let content = text;
       
       if (text.startsWith('/ta ')) {
-        itemType = 'task';
         content = text.slice(4);
       } else if (text.startsWith('/th ')) {
         itemType = 'thought';  
@@ -43,13 +37,11 @@ function Form({ currentTime, newItemText, setNewItemText, onAddItem }) {
       </div>
       
       <div className="form-input-row">
-        <span className="form-time">
-          {formatTime(currentTime)}
-        </span>
+        <span className="form-time">{formatTime(currentTime)}</span>
         <input
           type="text"
           value={newItemText}
-          onChange={handleInputChange}
+          onChange={(e) => setNewItemText(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="/ta Buy groceries or /th Feeling stressed"
           className="form-input"
