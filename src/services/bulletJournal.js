@@ -45,6 +45,9 @@ class BulletJournalService {
       body: JSON.stringify({message})
     });
     if (!res.ok) throw new Error('Failed to send chat message')
+
+    // when gemini sends a response, it comes as a JSON string. 
+    //  const data = await res.json() takes the response body (a JSON string), parses it into a JS object and returns it
     const data = await res.json()
     // gives the response from gemini
     return data.reply;

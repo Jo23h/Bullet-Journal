@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import InputForm from './Form';
 import ItemList from './ItemList';
 import bulletJournalService from '../services/bulletJournal';
 
-const Homepage = ({ items, setItems, filter}) => {
+const Homepage = ({items, setItems, filter}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [newItemText, setNewItemText] = useState('');
 
@@ -17,16 +17,16 @@ const Homepage = ({ items, setItems, filter}) => {
 
     try {
       const newItem = await bulletJournalService.createItem({
-        text: text,
-        type: type,
+        text,
+        type,
         completed: false,
         createdAt: new Date().toISOString()
       });
 
       setItems([...items, newItem]);
       setNewItemText('');
-    } catch (error) {
-      console.error('Failed to add item:', error);
+    } catch (err) {
+      console.error('Failed to add item:', err);
       alert('Failed to add item. Check console for details.');
     }
   };
@@ -41,8 +41,8 @@ const Homepage = ({ items, setItems, filter}) => {
       });
 
       setItems(items.map(i => i.id === itemId ? updated : i));
-    } catch (error) {
-      console.error('Failed to toggle task:', error);
+    } catch (err) {
+      console.error('Failed to toggle task:', err);
       alert('Failed to update task. Check console for details.');
     }
   };

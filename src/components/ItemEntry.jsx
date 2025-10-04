@@ -1,11 +1,9 @@
-import { useState } from 'react';
+import {useState} from 'react';
 
-function ItemEntry({ item, showTime, onToggleTask }) {
-  const [isHovered, setIsHovered] = useState(false);
-
+function ItemEntry({item, showTime, onToggleTask}) {
   const formatTime = (date) => {
-    const dateObj = date instanceof Date ? date : new Date(date);
-    return dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false });
+    const dateObject = date instanceof Date ? date : new Date(date);
+    return dateObject.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: false});
   };
   
   const getSymbol = (item) => item.type === 'task' ? (item.completed ? '✗' : '•') : '—';
@@ -18,8 +16,6 @@ function ItemEntry({ item, showTime, onToggleTask }) {
       <div 
         className={`item-content ${item.type === 'task' ? 'clickable' : ''}`}
         onClick={() => item.type === 'task' && onToggleTask(item.id)}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
         <span className={`item-symbol ${item.completed ? 'completed' : ''}`}>
           {getSymbol(item)}
