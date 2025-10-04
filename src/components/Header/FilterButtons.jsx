@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 
 function FilterButtons() {
+
+  // useLocation() provides an object with info about the current URL
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
