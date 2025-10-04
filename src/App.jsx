@@ -48,20 +48,20 @@ const App = () => {
     return (
       <div className="app">
         <div className="container">
-          <Header currentTime={currentTime} />
+          <Header currentTime={currentTime}/>
 
           <Routes>
             <Route 
               path="/" 
-              element={<Homepage items={items} setItems={setItems} filter="all" />} 
+              element={<Homepage items={items} setItems={setItems} filter="all"/>} 
             />
             <Route 
               path="/tasks" 
-              element={<Homepage items={items} setItems={setItems} filter="task" />} 
+              element={<Homepage items={items} setItems={setItems} filter="task"/>} 
             />
             <Route 
               path="/thoughts" 
-              element={<Homepage items={items} setItems={setItems} filter="thought" />} 
+              element={<Homepage items={items} setItems={setItems} filter="thought"/>} 
             />
           </Routes>
         </div>
@@ -71,7 +71,7 @@ const App = () => {
 
   return (
     <Router>
-      <AppContent />
+      <AppContent/>
     </Router>
   );
 };

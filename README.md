@@ -28,3 +28,4 @@ react, react-router-dom, express, cors, dotenv, axios
 ## Sources
 - Set up backend: https://www.youtube.com/watch?v=FcwfjMebjTU
 - Create chatbot using Gemini AI: https://www.youtube.com/watch?v=KNlMuo5PKxk & https://www.youtube.com/watch?v=0yboGn8errU
+- Journal: https://www.youtube.com/watch?v=rF74YMOuvMI

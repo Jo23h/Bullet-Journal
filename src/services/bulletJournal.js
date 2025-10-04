@@ -10,7 +10,7 @@ class BulletJournalService {
   async createItem(itemData) {
     const response = await fetch(`${API_URL}/items`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(itemData)
     });
     if (!response.ok) throw new Error('Failed to create item');
@@ -20,7 +20,7 @@ class BulletJournalService {
   async updateItem(id, itemData) {
     const response = await fetch(`${API_URL}/items/${id}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(itemData)
     });
     if (!response.ok) throw new Error('Failed to update item');
@@ -37,8 +37,8 @@ class BulletJournalService {
   async sendChatMessage(message) {
     const response = await fetch(`${API_URL}/chat`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({message})
     });
     if (!response.ok) throw new Error('Failed to send chat message');
     const data = await response.json();

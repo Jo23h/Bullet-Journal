@@ -48,6 +48,9 @@ app.post('/api/items', async (req, res) => {
     const response = await axios.post(airtableUrl, {fields: req.body}, {headers: airtableHeaders});
 
     // Sets HTTP status code to 201 ("Created")
+    // { id: response.data.id, ...response.data.fields } creates a new object combining Airtable's response
+    // response.data.id: Airtable's unique ID
+    // ... takes all properties from inside fields and spreads them into the parent object:
     res.status(201).json({id: response.data.id, ...response.data.fields});
   } catch (error) {
     res.status(500).json({error: 'Failed to create item'});
@@ -57,17 +60,21 @@ app.post('/api/items', async (req, res) => {
 // Update item
 app.patch('/api/items/:id', async (req, res) => {
   try {
-    const response = await axios.patch(`${airtableUrl}/${req.params.id}`, {fields: req.body}, { headers: airtableHeaders });
-    res.json({ id: response.data.id, ...response.data.fields });
+    // Express extracts item ID from the URL and makes it available as req.params.id.
+    const response = await axios.patch(`${airtableUrl}/${req.params.id}`, {fields: req.body}, {headers: airtableHeaders});
+
+    // Sends a JSON response back (from Airtable) to React app
+    // Combines the ID with all the field data
+    res.json({ id: response.data.id, ...response.data.fields});
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update item' });
+    res.status(500).json({ error: 'Failed to update item'});
   }
 });
 
 // Delete item
 app.delete('/api/items/:id', async (req, res) => {
   try {
-    await axios.delete(`${airtableUrl}/${req.params.id}`, {headers: airtableHeaders});
+    await axios.delete(`${airtableUrl}/${req.params.id}`, { headers: airtableHeaders });
     res.status(204).send();
   } catch (error) {
     res.status(500).json({error: 'Failed to delete item'});
@@ -85,7 +92,7 @@ app.post('/api/chat', async (req, res) => {
           parts: [{text: message}]
         }]
       },
-      { headers: {'Content-Type': 'application/json'}}
+      {headers: {'Content-Type': 'application/json'}}
     );
     const reply = response.data.candidates[0].content.parts[0].text;
     res.json({ reply });
