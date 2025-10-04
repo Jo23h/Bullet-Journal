@@ -13,6 +13,7 @@ class BulletJournalService {
       // react app tells server it is sending json data
       headers: {'Content-Type': 'application/json'},
       // converts the JavaScript object to a JSON string
+      // JS code runs, it stores data in your computer's RAM. it needs to be converted to a string format that can be transmitted
       body: JSON.stringify(itemData)
     });
     if (!res.ok) throw new Error('Failed to create item');
@@ -34,7 +35,7 @@ class BulletJournalService {
   async deleteItem(id) {
     const res = await fetch(`${API_URL}/items/${id}`, {
       method: 'DELETE'});
-    if (!res.ok) throw new Error('Failed to delete item');
+    if (!res.ok) throw new Error('Failed to delete item')
   }
 
   async sendChatMessage(message) {
@@ -43,8 +44,9 @@ class BulletJournalService {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({message})
     });
-    if (!res.ok) throw new Error('Failed to send chat message');
-    const data = await res.json();
+    if (!res.ok) throw new Error('Failed to send chat message')
+    const data = await res.json()
+    // gives the response from gemini
     return data.reply;
   }
 }
